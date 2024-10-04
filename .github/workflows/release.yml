@@ -1,0 +1,50 @@
+name: Python Package Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Install dependencies
+        run: |
+          poetry install  # Install all dependencies, including dev dependencies
+
+      - name: Lint code
+        run: |
+          poetry run pre-commit run --all-files  # Run pre-commit checks
+
+      - name: Run tests
+        run: |
+          poetry run pytest  # Ensure tests pass before releasing
+
+      - name: Bump version
+        run: |
+          poetry run cz bump --yes  # Bump version based on commit messages
+          git add pyproject.toml
+          git commit -m "chore: bump version [skip ci]"
+          git push origin main
+
+      - name: Push new Git tag
+        run: |
+          NEW_VERSION=$(poetry version -s)
+          git tag "v$NEW_VERSION"
+          git push --tags

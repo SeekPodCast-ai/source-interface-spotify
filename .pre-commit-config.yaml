@@ -1,0 +1,15 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1  # You can set the latest stable version here
+    hooks:
+      - id: flake8
+        name: flake8
+        additional_dependencies: []
+
+
+  - repo: https://github.com/psf/black
+    rev: 24.8.0  # Use the latest stable version of black
+    hooks:
+      - id: black
+        language_version: python3  # Specify the Python version to use
