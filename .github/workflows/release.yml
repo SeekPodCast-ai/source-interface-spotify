@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # Use GITHUB_TOKEN for authentication
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -60,4 +62,4 @@ jobs:
         run: |
           NEW_VERSION=$(poetry version -s)
           git tag "v$NEW_VERSION"
-          git push --tags
+          git push origin "v$NEW_VERSION"  # Push the specific tag using origin
