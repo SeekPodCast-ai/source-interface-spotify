@@ -42,14 +42,22 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Bump version
+        id: bump_version
         run: |
           poetry run cz bump --yes  # Bump version based on commit messages
 
-      - name: Push changes and tags
+      - name: Check for changes and push
         run: |
-          git add pyproject.toml
-          git commit -m "chore: bump version [skip ci]"
-          git push origin main
+          if [ "$(git status --porcelain)" ]; then
+            git add pyproject.toml
+            git commit -m "chore: bump version [skip ci]"
+            git push origin main
+          else
+            echo "No changes to commit, skipping push."
+          fi
+
+      - name: Push new Git tag
+        run: |
           NEW_VERSION=$(poetry version -s)
           git tag "v$NEW_VERSION"
           git push --tags
