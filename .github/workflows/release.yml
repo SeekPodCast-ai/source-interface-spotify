@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Set permissions to allow writing to the repository
+
 jobs:
   build:
     runs-on: ubuntu-latest
