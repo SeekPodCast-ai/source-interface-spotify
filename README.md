@@ -5,7 +5,7 @@
 
 [![Build Status](https://github.com/SeekPodCast-ai/source-interface-spotify/actions/workflows/release.yml/badge.svg)](https://github.com/SeekPodCast-ai/source-interface-spotify/actions)
 
-A brief description of your project.
+Spotify Source Interface helps in interacting with Spotify API seamlessly by abstracting the API calls and provides easy to use methods
 
 ## Table of Contents
 - [Installation](#installation)
