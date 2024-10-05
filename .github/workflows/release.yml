@@ -64,11 +64,15 @@ jobs:
       - name: Push new Git tag
         run: |
           NEW_VERSION=$(poetry version -s)
+          # Fetch all tags from the remote
+          git fetch --tags
           # Check if the tag already exists on the remote
           if git ls-remote --tags origin "v$NEW_VERSION"; then
             echo "Tag v$NEW_VERSION already exists, deleting it."
             git tag -d "v$NEW_VERSION"  # Delete the local tag
             git push origin --delete "v$NEW_VERSION"  # Delete the tag from remote
           fi
+          # Create the new tag and push
           git tag "v$NEW_VERSION"  # Create a new tag
           git push origin "v$NEW_VERSION"  # Push the new tag
+
