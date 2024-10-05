@@ -4,6 +4,9 @@ version = "0.0.1"
 description = "Interface Package to get information from Spotify API. This is an installable package"
 authors = ["Somesh Garje <someshgarje@gmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "source-interface-spotify" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -28,7 +31,3 @@ style = "pep440"
 versionfile_source = "source-interface-spotify/_version.py"
 tag_prefix = ""
 parentdir_prefix = "source-interface-spotify-"
-
-[tool.poetry.package]
-include = ["source-interface-spotify/**/*"]
-
