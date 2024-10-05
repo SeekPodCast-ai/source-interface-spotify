@@ -1,6 +1,7 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
+version = "1.0.0"  # Set initial version here
 
 [tool.commitizen.bump]
 commit_message = "chore: bump version to {version}"
-version_file = "pyproject.toml"  # Point to your version file
+version_file = "pyproject.toml"
