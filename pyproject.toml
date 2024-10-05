@@ -2,7 +2,7 @@
 name = "source-interface-spotify"
 version = "0.0.1"
 description = "Interface Package to get information from Spotify API. This is an installable package"
-authors = ["Somesh Garje <someshgarje@gmail.com>"]
+authors = ["Somesh Garje <someshgargje@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "source-interface-spotify" }
