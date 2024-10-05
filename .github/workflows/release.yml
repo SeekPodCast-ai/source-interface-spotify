@@ -51,13 +51,6 @@ jobs:
         run: |
           poetry run cz bump --yes  # Bump version based on commit messages
 
-      - name: Update version in _version.py
-        run: |
-          NEW_VERSION=$(poetry version -s)
-          echo "__version__ = '$NEW_VERSION'" > source-interface-spotify/_version.py
-          git add source-interface-spotify/_version.py
-          git commit -m "chore: update version in _version.py to $NEW_VERSION [skip ci]"
-
       - name: Check for changes and push
         run: |
           if [ "$(git status --porcelain)" ]; then
