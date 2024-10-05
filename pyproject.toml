@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "source-interface-spotify"
-version = "0.0.1"  # This will be updated automatically by Commitizen
+version = "1.0.0"  # This will be updated automatically by Commitizen
 description = "Interface Package to get information from Spotify API. This is an installable package"
 authors = ["Somesh Garje <someshgargje@gmail.com>"]
 readme = "README.md"
