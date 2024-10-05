@@ -28,3 +28,7 @@ style = "pep440"
 versionfile_source = "source-interface-spotify/_version.py"
 tag_prefix = ""
 parentdir_prefix = "source-interface-spotify-"
+
+[tool.poetry.package]
+include = ["source-interface-spotify/**/*"]
+
