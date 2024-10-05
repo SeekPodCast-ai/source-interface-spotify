@@ -51,11 +51,16 @@ jobs:
         run: |
           poetry run cz bump --yes  # Bump version based on commit messages
 
+      - name: Update version in _version.py
+        run: |
+          NEW_VERSION=$(poetry version -s)
+          echo "__version__ = '$NEW_VERSION'" > source-interface-spotify/_version.py
+          git add source-interface-spotify/_version.py
+          git commit -m "chore: update version in _version.py to $NEW_VERSION [skip ci]"
+
       - name: Check for changes and push
         run: |
           if [ "$(git status --porcelain)" ]; then
-            git add pyproject.toml
-            git commit -m "chore: bump version [skip ci]"
             git push origin main
           else
             echo "No changes to commit, skipping push."
@@ -64,7 +69,6 @@ jobs:
       - name: Push new Git tag
         run: |
           NEW_VERSION=$(poetry version -s)
-          # Fetch all tags from the remote
           git fetch --tags
           # Check if the tag already exists on the remote
           if git ls-remote --tags origin "v$NEW_VERSION"; then
@@ -75,4 +79,3 @@ jobs:
           # Create the new tag and push
           git tag "v$NEW_VERSION"  # Create a new tag
           git push origin "v$NEW_VERSION"  # Push the new tag
-
