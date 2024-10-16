@@ -7,7 +7,7 @@ import os
 import logging
 from rauth import OAuth2Service
 
-logger = logging.getLogger("source-interface-spotify")
+logger = logging.getLogger("source_interface_spotify")
 
 JsonSerializable = Union[
     None, bool, int, float, str, List["JsonSerializable"], Dict[str, "JsonSerializable"]

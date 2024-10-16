@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "source-interface-spotify"
+name = "source_interface_spotify"
 version = "1.0.4"
 description = "Interface Package to get information from Spotify API. This is an installable package"
 authors = ["Somesh Garje <someshgargje@gmail.com>"]
 readme = "README.md"
 packages = [
-    { include = "source-interface-spotify" }
+    { include = "source_interface_spotify" }
 ]
 
 [tool.commitizen]
@@ -36,6 +36,6 @@ build-backend = "poetry.core.masonry.api"
 [tool.versioneer]
 VCS = "git"
 style = "pep440"
-versionfile_source = "source-interface-spotify/_version.py"
+versionfile_source = "source_interface_spotify/_version.py"
 tag_prefix = ""
-parentdir_prefix = "source-interface-spotify-"
+parentdir_prefix = "source_interface_spotify-"
