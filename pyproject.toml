@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "source-interface-spotify"
-version = "1.0.1"
+version = "1.0.2"
 description = "Interface Package to get information from Spotify API. This is an installable package"
 authors = ["Somesh Garje <someshgargje@gmail.com>"]
 readme = "README.md"
@@ -10,7 +10,7 @@ packages = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.1"
+version = "1.0.2"
 version_files = [
     "pyproject.toml:^version"
 ]
