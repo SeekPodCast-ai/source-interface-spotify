@@ -49,7 +49,17 @@ jobs:
       - name: Bump version
         id: bump_version
         run: |
-          poetry run cz bump --yes  # Bump version based on commit messages
+          set +e  # Disable immediate exit on error
+          poetry run cz bump --yes
+          BUMP_EXIT_CODE=$?
+          if [ "$BUMP_EXIT_CODE" -eq 21 ]; then
+            echo "No eligible commits to bump, skipping this step."
+            exit 0  # Exit gracefully
+          elif [ "$BUMP_EXIT_CODE" -ne 0 ]; then
+            echo "Bump version failed with exit code $BUMP_EXIT_CODE."
+            exit $BUMP_EXIT_CODE  # Exit with the actual error code for any other error
+          fi
+        shell: bash
 
       - name: Check for changes and push
         run: |
