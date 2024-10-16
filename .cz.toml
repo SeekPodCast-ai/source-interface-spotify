@@ -1,6 +1,5 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.1"  # Set initial version here
 
 [tool.commitizen.bump]
 commit_message = "chore: bump version to {version}"
