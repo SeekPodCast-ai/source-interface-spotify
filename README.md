@@ -43,7 +43,7 @@ For information regarding the response structure visit https://developer.spotify
 import os
 from source_interface_spotify.interface import SpotifyAPIInterface
 
-# These are mandatory 
+# These are mandatory without which the API calls would fail
 os.environ["SPOTIFY_CLIENT_ID"] = '<your spotify API Client ID>'
 os.environ["SPOTIFY_CLIENT_SECRET"] = '<your spotify API Client Secret>'
 
