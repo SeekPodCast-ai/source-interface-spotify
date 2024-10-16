@@ -12,7 +12,8 @@ packages = [
 name = "cz_conventional_commits"
 version = "1.1.2"
 version_files = [
-    "pyproject.toml:^version"
+    "pyproject.toml:^version",
+    "source_interface_spotify._version.py"
 ]
 bump_message = "bump: version $current_version → $new_version [skip-ci]"
 
@@ -20,7 +21,6 @@ bump_message = "bump: version $current_version → $new_version [skip-ci]"
 python = "^3.12"
 requests = "^2.32.3"
 rauth = "^0.7.3"
-toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^6.2.5"

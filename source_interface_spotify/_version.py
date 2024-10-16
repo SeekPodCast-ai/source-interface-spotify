@@ -1,11 +1,3 @@
-from pathlib import Path
-import toml
+# __version__.py
 
-
-def get_version():
-    # Load the version from pyproject.toml
-    pyproject = toml.load(Path(__file__).parent.parent / "pyproject.toml")
-    return pyproject["tool"]["poetry"]["version"]
-
-
-__version__ = get_version()
+__version__ = "1.1.2"  # This will be updated by Commitizen. DO NOT UPDATE MANUALLY
