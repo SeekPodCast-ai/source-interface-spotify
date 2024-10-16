@@ -40,7 +40,11 @@ Provide usage examples and explanations here for your Python package. For exampl
 For information regarding the response structure visit https://developer.spotify.com/documentation/web-api
 
 ```python
+import os
 from source_interface_spotify.interface import SpotifyAPIInterface
+
+os.environ["SPOTIFY_CLIENT_ID"] = '<your spotify API Client ID>'
+os.environ["SPOTIFY_CLIENT_SECRET"] = '<your spotify API Client Secret>'
 
 client = SpotifyAPIInterface()
 episode = client.get_episode(episode_id='6ZcvVBPQ2ToLXEWVbaw59P')
