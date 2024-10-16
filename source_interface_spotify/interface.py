@@ -20,20 +20,15 @@ class SpotifyAPIServiceInterface:
         self.__client_secret = os.environ["SPOTIFY_CLIENT_SECRET"]
         self.__authorize_url = "https://accounts.spotify.com/authorize"
         self.__access_token_url = "https://accounts.spotify.com/api/token"
-        self.__base_url = "https://api.spotify.com/v1/"
-        self.data = {"grant_type": "client_credentials"}
-        self.decoder = lambda content: json.loads(content)
-        self.headers = {"Authorization": "Bearer {access_token}"}
+        self.base_url = "https://api.spotify.com/v1/"
+        self.__data = {"grant_type": "client_credentials"}
+        self.__decoder = lambda content: json.loads(content)
         self.__service = None
         self.__token = None
 
     @property
     def service(self):
-        return self.__service
-
-    @service.setter
-    def service(self, value):
-        if not value:
+        if self.__service is None:
             try:
                 self.__service = OAuth2Service(
                     client_id=self.__client_id,
@@ -41,17 +36,21 @@ class SpotifyAPIServiceInterface:
                     name="spotify",
                     authorize_url=self.__authorize_url,
                     access_token_url=self.__access_token_url,
-                    base_url=self.__base_url,
+                    base_url=self.base_url,
                 )
+                return self.__service
             except Exception as service_err:
                 logger.critical(f"Unable to create Spotify Service: {service_err}")
                 traceback.print_exc()
                 raise service_err
+        return self.__service
 
     @property
     def token(self):
         try:
-            return self.__service.get_access_token(data=self.data, decoder=self.decoder)
+            return self.service.get_access_token(
+                data=self.__data, decoder=self.__decoder
+            )
         except Exception as token_error:
             logger.critical(f"Unable to get Spotify Token: {token_error}")
             traceback.print_exc()
@@ -70,14 +69,17 @@ class SpotifyBaseAPIInterface(SpotifyAPIServiceInterface):
         data: Any = None,
         json_data: JsonSerializable = None,
     ):
-        if headers is not None and isinstance(headers, dict):
-            self.headers = self.headers | headers
-            self.headers.update({"Authorization": f"Bearer {self.token}"})
+        if headers is None:
+            headers = {"Authorization": f"Bearer {self.token}"}
+        elif headers is not None and isinstance(headers, dict):
+            headers.update({"Authorization": f"Bearer {self.token}"})
+
         try:
             response = requests.request(
                 method=method, url=url, headers=headers, data=data, json=json_data
             )
             response.raise_for_status()
+            return response
         except Exception as api_error:
             logger.critical(
                 f"An error occured while calling API with endpoint - {url}. Got {api_error}"
@@ -89,11 +91,11 @@ class SpotifyBaseAPIInterface(SpotifyAPIServiceInterface):
 class SpotifyAPIInterface(SpotifyBaseAPIInterface):
     def __init__(self):
         super().__init__()
-        self.__get_episode_endpoint = self.__base_url + "episodes/{id}"
-        self.__get_episodes_endpoint = self.__base_url + "episodes?ids={ids}"
-        self.__get_show_endpoint = self.__base_url + "shows/{id}"
-        self.__get_shows_endpoint = self.__base_url + "shows?ids={ids}"
-        self.__get_show_episodes_endpoint = self.__base_url + "shows/{id}/episodes"
+        self.__get_episode_endpoint = self.base_url + "episodes/{id}"
+        self.__get_episodes_endpoint = self.base_url + "episodes?ids={ids}"
+        self.__get_show_endpoint = self.base_url + "shows/{id}"
+        self.__get_shows_endpoint = self.base_url + "shows?ids={ids}"
+        self.__get_show_episodes_endpoint = self.base_url + "shows/{id}/episodes"
 
     def get_episode(self, episode_id: str):
         return self.get_response(
