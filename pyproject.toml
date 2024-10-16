@@ -8,6 +8,12 @@ packages = [
     { include = "source-interface-spotify" }
 ]
 
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_files = [
+    "pyproject.toml:^version"
+]
+
 [tool.poetry.dependencies]
 python = "^3.12"
 requests = "^2.32.3"
